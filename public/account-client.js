@@ -1,0 +1,3 @@
+(function(){'use strict';const config=window.KPSS_CONFIG||{};const key=config.publishableKey||'';let valid=key.startsWith('sb_publishable_');if(!valid&&key.split('.').length===3){try{valid=JSON.parse(atob(key.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).role==='anon'}catch{}}
+window.KPSSAccount={client:valid&&window.supabase?window.supabase.createClient(config.supabaseUrl,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}):null,configured:valid,phone(value){let phone=String(value).replace(/[\s()-]/g,'');if(/^05\d{9}$/.test(phone))phone='+90'+phone.slice(1);else if(/^5\d{9}$/.test(phone))phone='+90'+phone;return /^\+[1-9]\d{7,14}$/.test(phone)?phone:null}};
+})();
